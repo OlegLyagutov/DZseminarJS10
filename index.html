@@ -50,59 +50,102 @@
             <p class="population">366425</p>
             <p class="capital">Reykjavik</p>
             <p class="languages">Icelandic</p>
-            <img class="img-coat" src="https://mainfacts.com/media/images/coats_of_arms/is.png" />
             <img class="img" src="https://flagcdn.com/w320/is.png" />
         </div>
     </template>
 
     <script>
+        const data = JSON.parse(dataInfo);
+        console.log(data);
+
+        const contentEl = document.querySelector(`.content`);
+        const templateEl = document.querySelector(`.card_template`);
+
             fetch("https://restcountries.com/v3.1/all")
                 .then(response => response.json())
                 .then(dataInfo => showCards(dataInfo))
                 .catch(error => console.error(error));
-       
-        function showCards(dataInfo) {
+
+        data.forEach(element => {
+
+        const cardEl = templateEl.content.querySelector(`.card`).cloneNode(true);        
         
-        const contentEl = document.querySelector(`.content`);
-        const templateEl = document.querySelector(`.card_template`);
-
-        dataInfo.forEach((obj => {
-
-            const cardEl = templateEl.content.querySelector(`.card`).cloneNode(true);
-
-            const headingEl = cardEl.querySelector(`.heading`);
-            headingEl.textContent = dataInfo[0].name.official;
+        const headingEl = cardEl.querySelector(`.heading`);
+            headingEl.textContent = element.name.official;
 
             const regionEl = cardEl.querySelector(`.region`);
-            regionEl.textContent = dataInfo[0].region;
+            regionEl.textContent = element.region;
 
             const subregionEl = cardEl.querySelector(`.subregion`);
-            subregionEl.textContent = "регион " + dataInfo[0].subregion;
+            subregionEl.textContent = "регион " + element.subregion;
 
             const areaEl = cardEl.querySelector(`.area`);
-            areaEl.textContent = "территория " + dataInfo[0].area + " кв.м.";
+            areaEl.textContent = "территория " + element.area + " кв.м.";
 
             const populationEl = cardEl.querySelector(`.population`);
-            populationEl.textContent = "население " + dataInfo[0].population;
+            populationEl.textContent = "население " + element.population;
 
             const capitalEl = cardEl.querySelector(`.capital`);
-            capitalEl.textContent = "столица " + dataInfo[0].capital[0];
+            capitalEl.textContent = "столица " + element.capital;
 
             const languagesEl = cardEl.querySelector(`.languages`);
-            languagesEl.textContent = "язык " + dataInfo[0].languages.isl;
-
-
-            const imgCoatEl = cardEl.querySelector(`.img`);
-            imgCoatEl.src = "герб страны " + dataInfo[0].coatOfArms.png;
+            languagesEl.textContent = "язык " + element.languages.isl;
 
             const imgEl = cardEl.querySelector(`.img`);
-            imgEl.src = dataInfo[0].flags.png;
+            imgEl.src = element.flags.png;
 
 
             contentEl.appendChild(cardEl);
             
-        }))
-    };
+        });
+
+    //         fetch("https://restcountries.com/v3.1/all")
+    //             .then(response => response.json())
+    //             .then(dataInfo => showCards(dataInfo))
+    //             .catch(error => console.error(error));
+       
+    //     function showCards(dataInfo) {
+        
+    //     const contentEl = document.querySelector(`.content`);
+    //     const templateEl = document.querySelector(`.card_template`);
+
+    //     dataInfo.forEach((obj => {
+
+    //         const cardEl = templateEl.content.querySelector(`.card`).cloneNode(true);
+
+    //         const headingEl = cardEl.querySelector(`.heading`);
+    //         headingEl.textContent = dataInfo[0].name.official;
+
+    //         const regionEl = cardEl.querySelector(`.region`);
+    //         regionEl.textContent = dataInfo[0].region;
+
+    //         const subregionEl = cardEl.querySelector(`.subregion`);
+    //         subregionEl.textContent = "регион " + dataInfo[0].subregion;
+
+    //         const areaEl = cardEl.querySelector(`.area`);
+    //         areaEl.textContent = "территория " + dataInfo[0].area + " кв.м.";
+
+    //         const populationEl = cardEl.querySelector(`.population`);
+    //         populationEl.textContent = "население " + dataInfo[0].population;
+
+    //         const capitalEl = cardEl.querySelector(`.capital`);
+    //         capitalEl.textContent = "столица " + dataInfo[0].capital[0];
+
+    //         const languagesEl = cardEl.querySelector(`.languages`);
+    //         languagesEl.textContent = "язык " + dataInfo[0].languages.isl;
+
+
+    //         const imgCoatEl = cardEl.querySelector(`.img`);
+    //         imgCoatEl.src = "герб страны " + dataInfo[0].coatOfArms.png;
+
+    //         const imgEl = cardEl.querySelector(`.img`);
+    //         imgEl.src = dataInfo[0].flags.png;
+
+
+    //         contentEl.appendChild(cardEl);
+            
+    //     }))
+    // };
     </script>
 
 </body>

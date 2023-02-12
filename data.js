@@ -1,5 +1,5 @@
 const dataInfo = 
-[
+`[
 {
 "name": {
 "common": "Iceland",
@@ -53040,7 +53040,7 @@ const dataInfo =
 ]
 }
 }
-]
+]`
 
 
 
